@@ -3,10 +3,11 @@
     To stop you need to press "s" again.
 """
 from pynput.mouse import Controller, Button
+import keyboard
 import time
 
 MOUSE = Controller()
-CLICK: bool = False
+AUTOCLICK: bool = False
 
 
 def clicker() -> None:
@@ -16,13 +17,26 @@ def clicker() -> None:
     return: None
     """
     while True:
-        if CLICK:
+        if AUTOCLICK:
             MOUSE.click(Button.left)
             time.sleep(0.1)
 
 
+def check_keyboards() -> None:
+    """
+    A function that controls pressing "s" and changes flag if "s" has been pressed
+
+    return: None
+    """
+    global AUTOCLICK
+    while True:
+        if keyboard.read_key() == "s":
+            AUTOCLICK = not AUTOCLICK
+
+
+
 def main():
-    pass
+    check_keyboards()
 
 
 if __name__ == "__main__":
