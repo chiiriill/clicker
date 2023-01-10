@@ -6,10 +6,12 @@ from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
 import threading
 import time
+import os
 
 MOUSE = Controller()
 AUTOCLICK: bool = False
 START_KEY = KeyCode(char="s")
+END_KEY = KeyCode(char="q")
 
 
 def clicker() -> None:
@@ -33,6 +35,8 @@ def check_keyboards(key) -> None:
     global AUTOCLICK
     if key == START_KEY:
         AUTOCLICK = not AUTOCLICK
+    elif key == END_KEY:
+        os.abort()
 
 
 def main():
